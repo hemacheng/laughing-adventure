@@ -40,26 +40,27 @@
 推薦的專案結構如下：
 
 ```
-/mindtrack_api
-|
-|-- app/
-|   |-- __init__.py             # ✅ App Factory: 初始化 Flask 應用與擴展
-|   |-- blueprints/             # 📁 核心模組: 存放所有功能導向的 Blueprint
-|   |   |-- auth/               #    - 認證模組 (註冊、登入)
-|   |   |-- habits/             #    - 習慣模組 (CRUD)
-|   |   `-- moods/              #    - 心情模組 (CRUD)
-|   |-- models/                 # 📁 數據模型: 定義所有 SQLAlchemy 的數據庫模型
-|   |-- schemas/                # 📁 數據驗證: 定義所有 Marshmallow 的序列化/驗證結構
-|   `-- services/               # 📁 業務邏輯: 存放跨模組的、較複雜的業務邏輯層
-|
-|-- migrations/                 # 📁 數據庫遷移: 由 Flask-Migrate (Alembic) 管理
-|-- tests/                      # 📁 測試: 存放所有單元測試與整合測試
-|
-|-- .env.example                # 📝 環境變數範本
-|-- config.py                   # ⚙️ 設定檔: 管理開發、測試、生產環境的設定
-|-- poetry.lock                 # 📦 依賴鎖定
-|-- pyproject.toml              # 📦 專案與依賴管理 (使用 Poetry)
-`-- wsgi.py                     # 🚀 應用入口: Gunicorn 等 WSGI 伺服器的進入點
+/mindtrack-api
+|-- app/                           # 核心應用程式目錄
+|   |-- __init__.py                # 應用程式工廠 (App Factory)
+|   |-- blueprints/                # 存放所有功能藍圖
+|   |   |-- auth/                  # 處理使用者認證 (註冊、登入)
+|   |   |   |-- __init__.py
+|   |   |   `-- routes.py
+|   |   |-- habits/                # 處理習慣與心情的增刪改查
+|   |   |   |-- __init__.py
+|   |   |   `-- routes.py
+|   |   `-- insights/              # 處理數據洞察相關邏輯
+|   |       |-- __init__.py
+|   |       `-- routes.py
+|   |-- models.py                  # SQLAlchemy 資料庫模型
+|   |-- schemas.py                 # Marshmallow 資料驗證結構
+|   `-- extensions.py              # 集中管理 Flask 擴充套件實例
+|-- migrations/                    # 資料庫遷移腳本 (Alembic)
+|-- tests/                         # 單元測試與整合測試
+|-- config.py                      # 環境設定檔 (開發、生產)
+|-- run.py                         # 應用程式啟動入口
+`-- .flaskenv                      # Flask 環境變數
 ```
 
 ---
