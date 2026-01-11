@@ -69,38 +69,38 @@
 ```mermaid
 erDiagram
     users {
-        INTEGER id PK
-        TEXT email UNIQUE, INDEX
+        INTEGER id
+        TEXT email
         TEXT password_hash
         TEXT created_at
     }
 
     habits {
-        INTEGER id PK
-        INTEGER user_id FK
+        INTEGER id
+        INTEGER user_id
         TEXT name
         TEXT created_at
     }
 
-    habit_entries {
-        INTEGER id PK
-        INTEGER user_id FK
-        INTEGER habit_id FK
-        TEXT entry_date
+    habit_logs {
+        INTEGER id
+        INTEGER habit_id
+        TEXT log_date
+        TEXT created_at
     }
 
     mood_logs {
-        INTEGER id PK
-        INTEGER user_id FK
+        INTEGER id
+        INTEGER user_id
         INTEGER rating
         TEXT notes
         TEXT log_date
+        TEXT created_at
     }
 
     users ||--o{ habits : "定義"
-    users ||--o{ habit_entries : "完成"
     users ||--o{ mood_logs : "記錄"
-    habits ||--o{ habit_entries : "包含"
+    habits ||--o{ habit_logs : "完成於"
 ```
 
 ---
