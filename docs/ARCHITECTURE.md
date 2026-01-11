@@ -70,23 +70,26 @@
 
 ```mermaid
 graph TD
-    subgraph "使用者端 (Client)"
-        A[使用者 Browser]
+    subgraph "使用者端"
+        Client["使用者 (瀏覽器)"]
     end
 
-    subgraph "前端服務 (Frontend Service @ Vercel/Netlify)"
-        B[<b>Web 應用</b><br/>(React / Vue.js)]
+    subgraph "前端應用 (Frontend)"
+        FrontendApp["React / Vue.js App"]
     end
 
-    subgraph "後端服務 (Backend Service @ Heroku/Fly.io)"
-        C[<b>RESTful API</b><br/>(Flask App)]
-        D[<b>資料庫</b><br/>(PostgreSQL)]
+    subgraph "後端應用 (Backend API)"
+        BackendAPI["Flask API"]
+    end
+    
+    subgraph "資料庫 (Database)"
+        DB[("Database (PostgreSQL / SQLite)")]
     end
 
-    A -- "1. 與 UI 互動" --> B
-    B -- "2. 發送 API 請求 (JSON)" --> C
-    C -- "3. 透過 ORM 讀寫數據" --> D
-    D -- "4. 回傳數據" --> C
-    C -- "5. 回應 API 結果 (JSON)" --> B
-    B -- "6. 更新 UI 畫面" --> A
+    Client -- "請求 (Request)" --> FrontendApp
+    FrontendApp -- "API 請求" --> BackendAPI
+    BackendAPI -- "查詢 (Query)" --> DB
+    DB -- "回傳資料 (Data)" --> BackendAPI
+    BackendAPI -- "API 回應 (Response)" --> FrontendApp
+    FrontendApp -- "更新畫面 (UI Update)" --> Client
 ```
